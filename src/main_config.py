@@ -149,6 +149,10 @@ class ProgramManager:
         self.learning_rate  = float(self.config['TrainParameters']['learning_rate'].replace(",","."))
         self.batch_size     = int(self.config['TrainParameters']['batch_size'])
         self.early_stop     = bool(self.config['TrainParameters']['early_stop'])
+        self.patience       = int(self.config['TrainParameters']['patience'])
+
+        self.n_fft          = int(self.config['Spectrogram']['n_fft'])
+        self.hop_length     = int(self.config['Spectrogram']['hop_length'])
         
         # parse filters
         self.filter_parse()

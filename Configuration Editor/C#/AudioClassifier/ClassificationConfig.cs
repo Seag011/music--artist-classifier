@@ -26,10 +26,11 @@ namespace AudioClassifier
             parser = new FileIniDataParser();
             config = new IniData();
         }
-        public ClassificationConfig(string path)
+        public ClassificationConfig(string path, bool isNew = false)
         {
             parser = new FileIniDataParser();
-            ReadConfig(path);
+            if (!isNew)
+              ReadConfig(path);
         }
 
         public string GetPath()
@@ -209,6 +210,46 @@ namespace AudioClassifier
             {
                 config["TrainParameters"]["early_stop"] = value.ToString();
             }
+        }
+
+        public int patience
+        {
+            get
+            {
+                return int.Parse(config["TrainParameters"]["patience"]);
+            }
+            set
+            {
+                config["TrainParameters"]["patience"] = value.ToString();
+            }
+
+        }
+
+        /***********************************************************/
+        /*                   STFT & Mel_spectrogramm               */
+        public int n_fft
+        {
+            get
+            {
+                return int.Parse(config["Spectrogram"]["n_fft"]);
+            }
+            set
+            {
+                config["Spectrogram"]["n_fft"] = value.ToString();
+            }
+
+        }
+        public int hop_length
+        {
+            get
+            {
+                return int.Parse(config["Spectrogram"]["hop_length"]);
+            }
+            set
+            {
+                config["Spectrogram"]["hop_length"] = value.ToString();
+            }
+
         }
     }
 }

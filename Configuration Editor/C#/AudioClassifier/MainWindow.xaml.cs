@@ -95,7 +95,7 @@ namespace AudioClassifier
             layering.Value = 2;
 
             epoches.Value = 20;
-            learningRate.Value = 0.0001;
+            learningRate.Value = 0.001;
             early_stop.IsChecked = true;
             batchSize.Value = 16;
 
@@ -153,9 +153,20 @@ namespace AudioClassifier
             }
         }
 
+        private void generatePaths()
+        {
+            var dataset_path = textBoxDataset.Text;
+            var parent = Directory.GetParent(dataset_path) + @"\";
+
+            textBoxTemp.Text = parent + @"temp";
+            textBoxResult.Text = parent + @"results";
+            textBoxClassify.Text = parent + @"work";
+        }
+
         private void btnDataset_Click(object sender, RoutedEventArgs e)
         {
-            choosePath(textBoxDataset);            
+            choosePath(textBoxDataset);
+            generatePaths();
         }
 
         private void btnTemp_Click(object sender, RoutedEventArgs e)
@@ -205,7 +216,11 @@ namespace AudioClassifier
             epoches.Value = Config.epoches;
             learningRate.Value = Config.learning_rate;
             early_stop.IsChecked = Config.early_stop;
+            patience.Value = Config.patience;
             batchSize.Value = Config.batch_size;
+
+            n_fft.Value = Config.n_fft;
+            hop_length.Value = Config.hop_length;
 
             //select filters from Config
             selectFormats(ListFormats, Config.filters);
@@ -215,7 +230,7 @@ namespace AudioClassifier
         public void saveConfig(string path)
         {            
             if (!(path is null))
-                Config = new ClassificationConfig(path);
+                Config = new ClassificationConfig(path, true);
 
             Config.dataset_name = textBoxDatasetName.Text;
             Config.dataset = textBoxDataset.Text;
@@ -237,7 +252,11 @@ namespace AudioClassifier
             Config.epoches = epoches.Value ?? default(int);
             Config.learning_rate = learningRate.Value ?? default(double);
             Config.early_stop = early_stop.IsChecked ?? default(bool);
+            Config.patience = patience.Value ?? default(int);
             Config.batch_size = batchSize.Value ?? default(int);
+
+            Config.n_fft = n_fft.Value ?? default(int);
+            Config.hop_length = hop_length.Value ?? default(int);
 
             Config.SaveIni();
             IsSaved = true;
@@ -298,8 +317,11 @@ namespace AudioClassifier
             if (isListFormatsEmpty(ListFormats)) //check empty selected formats
             {
                 var dialog = new SaveFileDialog();
+                dialog.Filter = "INI file (*.ini)|*.ini";
+                dialog.FileName = textBoxDatasetName.Text;
                 if (dialog.ShowDialog() == true)
                 {
+                    File.Create(dialog.FileName);
                     saveConfig(dialog.FileName);                   
                 }
             }
@@ -388,7 +410,5 @@ namespace AudioClassifier
             preprocess.ShowDialog();
         }
         #endregion
-
-
     }
 }

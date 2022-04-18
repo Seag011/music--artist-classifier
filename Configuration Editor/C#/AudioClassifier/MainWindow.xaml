@@ -15,7 +15,7 @@
 
         xmlns:local="clr-namespace:AudioClassifier"
         mc:Ignorable="d"
-        Title="Audio Classifier" Height="659" Width="790" MinHeight="605" MinWidth="770" ResizeMode="CanMinimize">
+        Title="Audio Classifier" Height="659" Width="790" MinHeight="800" MinWidth="770" ResizeMode="CanMinimize">
     <Grid>
         <Menu Height="19" VerticalAlignment="Top">
             <MenuItem Header="Файл">
@@ -78,7 +78,7 @@
             <StackPanel  MinHeight="35" Margin="0,0,0,15">
                 <Label Content="Датасет:" HorizontalAlignment="Left"/>
                 <WrapPanel>
-                    <TextBox x:Name="textBoxDataset" Text="C:/Files/Dataset" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <TextBox x:Name="textBoxDataset" Text="C:/Files/dataset" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
                     <Button x:Name="btnDataset" Content="Выбрать путь" Padding="10,0" Click="btnDataset_Click"/>
                 </WrapPanel>
             </StackPanel>
@@ -86,7 +86,7 @@
             <StackPanel MinHeight="35" Margin="0,0,0,15">
                 <Label Content="Временные файлы:" HorizontalAlignment="Left"/>
                 <WrapPanel>
-                    <TextBox x:Name="textBoxTemp" Text="C:/Files/Dataset_Temp" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <TextBox x:Name="textBoxTemp" Text="C:/Files/temp" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
                     <Button x:Name="btnTemp" Content="Выбрать путь" Padding="10,0" Click="btnTemp_Click"/>
                 </WrapPanel>
             </StackPanel>
@@ -94,7 +94,7 @@
             <StackPanel  MinHeight="35" Margin="0,0,0,15">
                 <Label Content="Результаты обучения:" HorizontalAlignment="Left"/>
                 <WrapPanel>
-                    <TextBox x:Name="textBoxResult" Text="C:/Files/Result" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <TextBox x:Name="textBoxResult" Text="C:/Files/result" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
                     <Button x:Name="btnResult" Content="Выбрать путь" Padding="10,0" Click="btnResult_Click" />
                 </WrapPanel>
             </StackPanel>
@@ -102,7 +102,7 @@
             <StackPanel MinHeight="35">
                 <Label Content="Файлы для классификации:" HorizontalAlignment="Left"/>
                 <WrapPanel>
-                    <TextBox x:Name="textBoxClassify" Text="C:/Files/Classify" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <TextBox x:Name="textBoxClassify" Text="C:/Files/work" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
                     <Button x:Name="btnClassify" Content="Выбрать путь" Padding="10,0" Click="btnClassify_Click" />
                 </WrapPanel>
             </StackPanel>
@@ -167,10 +167,41 @@
                         <CheckBox x:Name="early_stop" VerticalAlignment="Center" IsChecked="True"/>
                     </WrapPanel>
                     <WrapPanel>
+                        <Label Content="patience:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="patience" Minimum="1" Value="10"/>
+                    </WrapPanel>
+                    <WrapPanel>
                         <Label Content="Размер пакета:" HorizontalAlignment="Left"/>
                         <xctk:IntegerUpDown x:Name="batchSize" Width="70" Minimum="1" Maximum="1024" Value="1"/>
                     </WrapPanel>
 
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type WrapPanel}">
+                            <Setter Property="Margin" Value="0,5"/>
+                            <Setter Property="Width" Value="265"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Width" Value="190"/>
+                            <Setter Property="Margin" Value="5,0,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Label Width="Auto" HorizontalAlignment="Center" >
+                        <TextBlock TextDecorations="Underline">Параметры преобразований Фурье (мел-спектрограмм)</TextBlock>
+                    </Label>
+
+                    <WrapPanel>
+                        <Label Content="fft window length:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="n_fft" Width="70" Minimum="256" Value="2048"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="hop_length:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="hop_length" Width="70" Value="512" Minimum="32"/>
+                    </WrapPanel>
                 </StackPanel>
             </WrapPanel>
 
