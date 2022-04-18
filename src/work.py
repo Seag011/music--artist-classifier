@@ -24,7 +24,7 @@ from keras.layers import Input, Dense
 from keras.models import Sequential, load_model
 
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam 
 
 
 import datetime
