@@ -64,6 +64,7 @@ class PreprocessorManager:
 
         fileName = os.path.split(path)[-1]        
         extention = fileName.split('.')[-1]
+        extention = extention.lower()
         
         return extention in self.__audio_extentions
 
