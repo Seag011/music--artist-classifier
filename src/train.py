@@ -459,19 +459,20 @@ class Train:
         train, validation, test, \
         self.labelNames, self.imageShape = self.getDataset(spectrogram_out_dir,
                                                            batch_size)
-        print("Loading model")
-        model = load_model(save_weights_folder+os.sep+save_name+os.sep+
-                    save_name+".h5")
-        model.summary()
-        # model = self.prepareModel(self.imageShape, learning_rate)
-        # callbacks = self.setCallbacks(save_weights_folder, early_stop, patience)        
+        # print("Loading model")
+        # model = load_model(save_weights_folder+os.sep+save_name+os.sep+
+        #             save_name+".h5")
+        # model.summary()
+        model = self.prepareModel(self.imageShape, learning_rate)
+        callbacks = self.setCallbacks(save_weights_folder, early_stop, patience)        
 
-        # history = self.trainModel(model, train, validation, epochs, batch_size, 
-        #                           callbacks, save_weights_folder, save_name)   
-        # test_result = self.testModel(model, test, batch_size)
-        # predictions, true_results = self.processResult(test, test_result)
-        # self.saveMetrics(save_metrics_folder, save_name, predictions, 
-        #                  true_results, self.labelNames, history)
+        history = self.trainModel(model, train, validation, epochs, batch_size, 
+                                  callbacks, save_weights_folder, save_name)   
+        test_result = self.testModel(model, test, batch_size)
+        predictions, true_results = self.processResult(test, test_result)
+        
+        self.saveMetrics(save_metrics_folder, save_name, predictions, 
+                         true_results, self.labelNames, history)
 
         print("Testing")
         test = train.concatenate(validation.concatenate(test))
@@ -479,7 +480,7 @@ class Train:
         test_result = self.testModel(model, test, batch_size)
         print("Printing to results")
         predictions, true_results = self.processResult(test, test_result)
-        self.saveMetrics(save_metrics_folder, save_name, predictions, 
+        self.saveMetrics(save_metrics_folder, save_name+"alldata", predictions, 
                           true_results, self.labelNames)
 
         return self.labelNames

@@ -188,7 +188,7 @@ class Work:
             print(datetime.datetime.now(), flush=True)
             ## output to file            
             self.out.write(file+"\t\t"+str(key)+"\t\t"+str(choice[index])+"/" 
-                       + str(result.shape[0])+str(choice[index]/result.shape[0])+"\n")  
+                       + str(result.shape[0])+" "+str(choice[index]/result.shape[0])+"\n")  
         
    
     def startWork(self,
