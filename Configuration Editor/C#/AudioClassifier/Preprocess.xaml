@@ -1,0 +1,31 @@
+﻿ <!--
+    Copyright (c) 2021, Pavel Alexeev, pavlik3312@gmail.com
+    All rights reserved.
+
+    This source code is licensed under the CC BY-NC-SA 4.0 license found in the
+    LICENSE file in the root directory of this source tree.
+-->
+
+<Window x:Class="AudioClassifier.Preprocess"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioClassifier"
+        mc:Ignorable="d"        
+        Title="Data Process" Height="444" Width="524" 
+        Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid>
+        <DockPanel Margin="10,20,10,10">
+            <Label x:Name="Title" DockPanel.Dock="Top" Content="ПРЕОБРАЗОВАНИЕ ДАННЫХ" HorizontalAlignment="Center"/>
+            <StackPanel DockPanel.Dock="Top">
+                <Label Content="Процесс :" HorizontalAlignment="Left"/>
+                <ProgressBar x:Name="progressBar" Height="35" HorizontalContentAlignment="Left" Minimum="0" Maximum="100" />
+                             <!--Value="{Binding UpdateSourceTrigger=PropertyChanged, XPath=Preprocess/@CurrentProgress, Mode=OneWayToSource}-->
+                <Label Content="Осталось всего: " HorizontalAlignment="Left"/>
+            </StackPanel>
+            <TextBox x:Name="Output" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" FontFamily="Consolas" VerticalAlignment="Stretch" IsReadOnly="True" TextChanged="Output_TextChanged"/>
+        </DockPanel>
+
+    </Grid>
+</Window>

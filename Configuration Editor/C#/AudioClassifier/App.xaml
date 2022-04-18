@@ -1,0 +1,16 @@
+﻿<!--
+    Copyright (c) 2021, Pavel Alexeev, pavlik3312@gmail.com
+    All rights reserved.
+
+    This source code is licensed under the CC BY-NC-SA 4.0 license found in the
+    LICENSE file in the root directory of this source tree.
+-->
+ <Application x:Class="AudioClassifier.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AudioClassifier"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</Application>

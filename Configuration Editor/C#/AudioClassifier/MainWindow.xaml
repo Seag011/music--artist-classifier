@@ -1,0 +1,197 @@
+﻿<!--
+    Copyright (c) 2021, Pavel Alexeev, pavlik3312@gmail.com
+    All rights reserved.
+
+    This source code is licensed under the CC BY-NC-SA 4.0 license found in the
+    LICENSE file in the root directory of this source tree.
+-->
+
+<Window x:Class="AudioClassifier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+
+        xmlns:local="clr-namespace:AudioClassifier"
+        mc:Ignorable="d"
+        Title="Audio Classifier" Height="659" Width="790" MinHeight="605" MinWidth="770" ResizeMode="CanMinimize">
+    <Grid>
+        <Menu Height="19" VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Name="newConfigMenu" Header="Новая конфигурация" Click="newConfig_Click"/>
+                <MenuItem Name="openConfigMenu" Header="Открыть конфигурацию" Click="openConfig_Click"/>
+                <MenuItem Name="saveConfigMenu" Header="Сохранить конфигурацию" Click="saveConfig_Click"/>
+                <MenuItem Name="saveAsConfigMenu" Header="Сохранить как ..." Click="saveAsConfig_Click"/>
+                <!--<MenuItem Name="closeConfigMenu" Header="Закрыть" Click="closeConfig_Click"/>-->
+                <Separator/>
+                <MenuItem Name="closeProgramm" Header="Выйти" Click="closeProgramm_Click"/>
+            </MenuItem>
+            <!--<MenuItem Header="Проект">
+                <MenuItem Header="Проверить">
+                    <MenuItem Header="Сгенерированный датасет"/>
+                    <MenuItem Header="Модель"/>
+                    <MenuItem Header="Результаты"/>
+                </MenuItem>
+                <MenuItem Header="Сохранить конфигурацию"/>
+
+            </MenuItem>-->
+        </Menu>
+        <!--<Label Content="Форматы во входном датасете" Margin="535,49,60,347" />-->
+        <StackPanel Margin="579,29,0,0" HorizontalAlignment="Left" Width="175" Height="495" VerticalAlignment="Top">
+            <TextBlock Text="Форматы во входном датасете:" Height="Auto" VerticalAlignment="Top" Width="171" HorizontalAlignment="Left" />
+            <ListBox Name="ListFormats" FontSize="14" SelectionMode="Multiple" Height="439" HorizontalAlignment="Left" Width="175" SelectionChanged="onChangedValues"/>
+            <Button x:Name="selectAllFormats" Content="Выбрать все" Click="selectAllFormats_Click"/>
+            <Button x:Name="unselectAllFormats" Content="Отменить выбор" Click="unselectAllFormats_Click"/>
+        </StackPanel>
+        <StackPanel Margin="10,19,191,14">
+            <StackPanel.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Width" Value="Auto"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="IsEnabled" Value="false"/>
+                    <EventSetter Event="TextChanged" Handler="onChangedValues"/>
+                </Style>
+                <Style TargetType="xctk:DoubleUpDown">
+                    <EventSetter Event="ValueChanged" Handler="onChangedValues"/>
+                </Style>
+                <Style TargetType="xctk:IntegerUpDown">
+                    <EventSetter Event="ValueChanged" Handler="onChangedValues"/>
+                </Style>
+                <Style TargetType="CheckBox">
+                    <EventSetter Event="Checked" Handler="onChangedValues"/>
+                    <EventSetter Event="Unchecked" Handler="onChangedValues"/>
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel  MinHeight="35" Margin="0,0,0,15" >
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Label Content="Название датасета:" HorizontalAlignment="Left"/>
+                <WrapPanel>
+                    <TextBox x:Name="textBoxDatasetName" Text="artist20" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="250" Height="26" Margin="4,0"/>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel  MinHeight="35" Margin="0,0,0,15">
+                <Label Content="Датасет:" HorizontalAlignment="Left"/>
+                <WrapPanel>
+                    <TextBox x:Name="textBoxDataset" Text="C:/Files/Dataset" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <Button x:Name="btnDataset" Content="Выбрать путь" Padding="10,0" Click="btnDataset_Click"/>
+                </WrapPanel>
+            </StackPanel>
+
+            <StackPanel MinHeight="35" Margin="0,0,0,15">
+                <Label Content="Временные файлы:" HorizontalAlignment="Left"/>
+                <WrapPanel>
+                    <TextBox x:Name="textBoxTemp" Text="C:/Files/Dataset_Temp" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <Button x:Name="btnTemp" Content="Выбрать путь" Padding="10,0" Click="btnTemp_Click"/>
+                </WrapPanel>
+            </StackPanel>
+
+            <StackPanel  MinHeight="35" Margin="0,0,0,15">
+                <Label Content="Результаты обучения:" HorizontalAlignment="Left"/>
+                <WrapPanel>
+                    <TextBox x:Name="textBoxResult" Text="C:/Files/Result" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <Button x:Name="btnResult" Content="Выбрать путь" Padding="10,0" Click="btnResult_Click" />
+                </WrapPanel>
+            </StackPanel>
+
+            <StackPanel MinHeight="35">
+                <Label Content="Файлы для классификации:" HorizontalAlignment="Left"/>
+                <WrapPanel>
+                    <TextBox x:Name="textBoxClassify" Text="C:/Files/Classify" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="430" Height="26" Margin="4,0"/>
+                    <Button x:Name="btnClassify" Content="Выбрать путь" Padding="10,0" Click="btnClassify_Click" />
+                </WrapPanel>
+            </StackPanel>
+            <WrapPanel>
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type WrapPanel}">
+                            <Setter Property="Margin" Value="0,5"/>
+                            <Setter Property="Width" Value="265"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Width" Value="190"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Label Width="Auto" HorizontalAlignment="Center" >
+                        <TextBlock TextDecorations="Underline">Параметры преобразования файлов</TextBlock>
+                    </Label>
+                    <WrapPanel>
+                        <Label Content="Частота дисктретизации:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="sampleRate" Width="70" Value="16000" Minimum="8000" Maximum="44100"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="Разбиения аудиофайла (м.с.):" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="sliceLength" Width="70" Value="10000" Minimum="10"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="Наложения разбитых частей:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="layering" Width="70" Value="2" Minimum="1" Maximum="10"/>
+                    </WrapPanel>
+
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type WrapPanel}">
+                            <Setter Property="Margin" Value="0,5"/>
+                            <Setter Property="Width" Value="265"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Width" Value="190"/>
+                            <Setter Property="Margin" Value="5,0,0,0"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Label Width="Auto" HorizontalAlignment="Center" >
+                        <TextBlock TextDecorations="Underline">Параметры обучения</TextBlock>
+                    </Label>
+
+                    <WrapPanel>
+                        <Label Content="Количество эпох:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="epoches" Width="70" Minimum="1" Value="20"/>
+                    </WrapPanel>
+
+                    <WrapPanel>
+                        <Label Content="Коэффициент обучения:" HorizontalAlignment="Left"/>
+                        <xctk:DoubleUpDown x:Name="learningRate" Width="70" Value="0.0001" Increment="0.0001" Minimum="0.0001" Maximum="1"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="Предварительная остановка:" HorizontalAlignment="Left"/>
+                        <CheckBox x:Name="early_stop" VerticalAlignment="Center" IsChecked="True"/>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="Размер пакета:" HorizontalAlignment="Left"/>
+                        <xctk:IntegerUpDown x:Name="batchSize" Width="70" Minimum="1" Maximum="1024" Value="1"/>
+                    </WrapPanel>
+
+                </StackPanel>
+            </WrapPanel>
+
+            <DockPanel Width="Auto" Margin="0,10,0,0" Height="75">
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="11,0"/>
+                        <Setter Property="DockPanel.Dock" Value="Left"/>
+                        <Setter Property="Width" Value="161"/>
+                    </Style>
+                </DockPanel.Resources>
+                <DockPanel DockPanel.Dock="Top">
+                    <Button x:Name="btnStartTransferDataset" HorizontalAlignment="Left" Content="Преобразовать датасет" Height="30" Click="btnStartTransferDataset_Click"  />
+                    <Button x:Name="btnStartTrain" HorizontalAlignment="Left" Content="Начать обучение" Height="30" Click="btnStartTrain_Click"  />
+                    <Button x:Name="btnStartClassify" HorizontalAlignment="Left" Content="Классифицировать файлы" Height="30" Click="btnStartClassify_Click" />
+                </DockPanel>
+                <DockPanel>
+                    <Button x:Name="btnStartAll" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Width="527" Content="Полный цикл работы" Height="30" Click="btnStartAll_Click" />
+                </DockPanel>
+            </DockPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
