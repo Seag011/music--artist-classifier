@@ -135,7 +135,7 @@ class Preprocessor:
     
     def __getMelSpectrogram(self, PCM_part):
         """ get mel spectrogram from numpy array """
-        s = librosa.feature.melspectrogram(PCM_part, sr=self.__sample_rate, 
+        s = librosa.feature.melspectrogram(y=PCM_part, sr=self.__sample_rate, 
                                             n_fft=self.__n_fft,
                                             hop_length=self.__hop_length)
         return librosa.power_to_db(s, ref=np.max)
@@ -158,7 +158,8 @@ class Preprocessor:
         
         pylab.savefig(path+".png", bbox_inches=None, pad_inches=0, format="png")
         #pylab.show()
-
+        
+        pylab.clf()
         pylab.close()
 
     # def __saveMelSpectrogram__experiment(self, spectrogram, path):

@@ -8,7 +8,7 @@
 
 #import .utility as utility
 from sklearn.metrics import precision_score
-from tensorflow.keras import callbacks
+from keras import callbacks
 import model as models
 import preprocessor as process_files
 
@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from tensorflow.keras.optimizers import Adam 
+from keras.optimizers import Adam 
 
 # TODO: make a classification report
 
@@ -417,28 +417,28 @@ class Train:
                     save_name + "_confusion_mtrx" + '.png') 
         plt.close()
 
-        # # summarize history for accuracy 
-        # plt.plot(history.history['accuracy'])
-        # plt.plot(history.history['val_accuracy'])
-        # plt.title('Model accuracy (total '+
-        #           str(history.history['accuracy'][-1]) + ')')
-        # plt.ylabel('accuracy')
-        # plt.xlabel('epoch')
-        # plt.legend(['train', 'test'], loc='upper left')
-        # plt.savefig(save_metrics_folder+os.sep+
-        #             save_name+"_model_accuracy"+'.png') 
-        # plt.close()
+        # summarize history for accuracy 
+        plt.plot(history.history['accuracy'])
+        plt.plot(history.history['val_accuracy'])
+        plt.title('Model accuracy (total '+
+                  str(history.history['accuracy'][-1]) + ')')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.savefig(save_metrics_folder+os.sep+
+                    save_name+"_model_accuracy"+'.png') 
+        plt.close()
 
-        # # summarize history for loss
-        # plt.plot(history.history['loss'])
-        # plt.plot(history.history['val_loss'])
-        # plt.title('model loss')
-        # plt.ylabel('loss')
-        # plt.xlabel('epoch')
-        # plt.legend(['train', 'test'], loc='upper left')
-        # plt.savefig(save_metrics_folder+os.sep+
-        #             save_name + "_model_loss" + '.png') 
-        # plt.close()
+        # summarize history for loss
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.savefig(save_metrics_folder+os.sep+
+                    save_name + "_model_loss" + '.png') 
+        plt.close()
 
     def startTrain(self, 
               spectrogram_out_dir : str,
