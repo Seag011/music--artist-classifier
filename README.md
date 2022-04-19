@@ -8,8 +8,8 @@ Algorithm classifies audio files by artist, which tracks have already been known
 
 ## Requirenments
 - [ffmpeg](https://ffmpeg.org/ "Official site")
-- python 3.8.x or more (campatible with Tensorflow 2.8 or more)
-	- tensorflow 2.8
+- python 3.8.x or more (campatible with Tensorflow 2.4 or more)
+	- tensorflow 2.4
 	- numpy
 	- etc. (see requirenments.txt)
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) (for using Tensorflow)
