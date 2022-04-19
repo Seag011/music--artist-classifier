@@ -18,7 +18,7 @@ Algorithm classifies audio files by artist, which tracks have already been known
 
 To start project you need to copy ```src``` folder, set up config file (manually or with *Configuratoin Editor*) and start **main_config.py** in console:
 ```
-C:\\...\src>main_config.py -i config_path\config.ini -m all|prepare|train|work
+C:\...\src>main_config.py -i config_path\config.ini -m all|prepare|train|work
 ```
 You have to check especialy folder srtucture (see *\example* folder) and config file. 
 
