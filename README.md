@@ -1,7 +1,10 @@
+license: CC BY-NC-SA 4.0
+
 # music-artist-classifier
 Project is a full music artistist classifier, using **Tensorflow** and Keras. Algorithm can process almost all music formats and can fully work with configuration file from music files to needed results. 
 
 Algorithm classifies audio files by artist, which tracks have already been known. To classify files probable known artist are needed to be in training dataset.
+
 
 ## Requirenments
 - [ffmpeg](https://ffmpeg.org/ "Official site")
